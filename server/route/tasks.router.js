@@ -39,10 +39,31 @@ tasksRouter.post('/', (req, res) => {
 }) //end post
 
 //put
+tasksRouter.put('/:id', (req, res)=>{
+    console.log('PUT:', req.params.id, req.body);
+    const query = `UPDATE "tasks" SET status=$1 WHERE id=$2;`;
+    const values = [req.body.status, req.params.id];
+    pool.query(query, values).then((results)=>{
+        res.sendStatus(200);
+    }).catch((err) => {
+        console.log('error with update', err);
+        res.sendStatus(500);
+    })
+})//end put
 
 //delete
+tasksRouter.delete('/:id', (req, res) =>{
+    console.log('DELETE hit:' req.params.id);
+    const query = `DELETE FROM "tasks" WHERE id =$1;`;
+    const values = [req.params.id];
+    pool.query(query,values).then((response)=>{
+        res.sendStatus(200);
+    }).catch((err) => {
+        console.log('error with Delete', err);
+        res.sendStatus(500);
+    })
+})//end delete
 
-
-
+//end delete
 
 module.exports = tasksRouter;
