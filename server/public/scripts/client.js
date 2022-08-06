@@ -14,7 +14,7 @@ function addTask(){
     }; console.log('in addTask', task);
     //send to server
     $.ajax({
-        type: post,
+        type: 'POST',
         url: '/tasks' ,
         data: task
     }).then(function(response){
@@ -29,6 +29,22 @@ function addTask(){
 }
 
 function displayTask(){
-
-    
+    $.ajax({
+        type : 'GET',
+        url : '/tasks'
+    }).then( function (response){
+        $('#tasksOut').empty();
+        //render to DOM
+        for(let task = 0; task<response.length; task++)
+            $('#tasksOut').append(`
+            <li> 
+            ${response[task].task}
+            ${response[task].status}
+            <button class="deleteBtn" data-id"${response[task].id}">delete</button>
+            <button class="completeBtn" data-id="${response[task].id}" data-status="${response[task].status}">
+                status: ${response[task].status} </button>
+            </li>`)
+    }).catch(function(err){
+        alert('error getting tasks', err);
+    })
 }
