@@ -1,6 +1,7 @@
-const { post } = require("../../route/tasks.router");
+$(document).ready(onReady);
 
-$(document).ready(onReady){
+function onReady(){
+    console.log('browser ready')
     //click listeners
     $('#submitBtn').on('click', addTask);
     //load items from server
@@ -8,6 +9,7 @@ $(document).ready(onReady){
 };
 
 function addTask(){
+    console.log('clicked!');
     let task = {
         task:task
     }; console.log('in addTask', task);
