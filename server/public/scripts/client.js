@@ -3,7 +3,6 @@ const { post } = require("../../route/tasks.router");
 $(document).ready(onReady){
     //click listeners
     $('#submitBtn').on('click', addTask);
-
     //load items from server
     displayTask()
 };

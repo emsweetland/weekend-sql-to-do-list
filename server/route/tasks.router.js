@@ -14,8 +14,29 @@ const pool = new Pool({
 });
 
 //get
+tasksRouter.get('/tasks', (req,res)=> {
+    console.log('in /tasks GET');
+    const query = `SELECT * from "tasks" ORDER BY "id";`;
+    pool.query(query).then((results)=>{
+        res.send(result.rows);
+    }).catch((err)=>{
+        console.log( 'error with get:' err);
+        res.sendStatus(500);
+    })
+})//end get
 
 //post
+tasksRouter.post('/tasks', (req, res) => {
+    console.log('in /tasks post:', req.body);
+    const query = `INSERT INTO "tasks" ("task") VALUES ($1);`;
+    const values = [req.body.task];
+    pool.query(query, values).then(results => {
+        res.sendStatus(201);
+    }).catch((err)=> {
+        console.log('ERROR WITH INSERT:', err);
+        res.sendStatus(500);
+    })
+}) //end post
 
 //put
 
