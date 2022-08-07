@@ -1,23 +1,16 @@
+body {
+  background-color: rgb(204, 203, 201);
+  text-align: center;
+  align-content: center;
+}
+
+/* uhh i would really like to center my table */
+
+table, li{
+  border: 1px solid black;
+}
+
+
 .complete {
   background-color: chartreuse;
-}
-
-li{
-  text-align: center;
-}
-
-table#toDo {
-  text-align: center;
-}
-
-div#outputDiv {
-  text-align: center;
-}
-
-div#inputDiv {
-  text-align: center;
-}
-
-h1 {
-  text-align: center;
 }
