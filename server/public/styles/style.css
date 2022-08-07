@@ -1,4 +1,23 @@
 .complete {
-    background-color: chartreuse;
+  background-color: chartreuse;
 }
 
+li{
+  text-align: center;
+}
+
+table#toDo {
+  text-align: center;
+}
+
+div#outputDiv {
+  text-align: center;
+}
+
+div#inputDiv {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+}
