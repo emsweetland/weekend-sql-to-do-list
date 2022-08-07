@@ -1,5 +1,6 @@
 $(document).ready(onReady);
 
+
 function onReady(){
     console.log('browser ready')
     //click listeners
@@ -41,14 +42,23 @@ function displayTask(){
     }).then( function (response){
         $('#tasksOut').empty();
         //render to DOM
-        for(let task = 0; task<response.length; task++)
+        for(let task = 0; task<response.length; task++)     //if else loop for if status is true or false
+            if(response[task].status === false){
             $('#tasksOut').append(`
-            <li> 
+            <li class="thisTask" data-id="${response[task].id}"> 
             ${response[task].task}
             <button class="deleteBtn" data-id="${response[task].id}">delete</button>
             <button class="completeBtn" data-id="${response[task].id}" data-status="${response[task].status}">
                 complete! </button>
-            </li>`)
+            </li>`)}else{
+                $('#tasksOut').append(`
+                <li class="complete" data-id="${response[task].id}"> 
+                ${response[task].task}
+                <button class="deleteBtn" data-id="${response[task].id}">delete</button>
+                <button class="completeBtn" data-id="${response[task].id}" data-status="${response[task].status}">
+                    complete! </button>
+                </li>`)   
+            }
     }).catch(function(err){
         alert('error getting tasks', err);
     })
@@ -76,11 +86,11 @@ function completeTask(){
     $.ajax({
         type: 'PUT',
         url:`/tasks/${id}`,
-        data: { status : true }
+        data: { status : status }
     }).then(function(response){
-    console.log('back from put:', response);
-    displayTask();
-}).catch(function(err){
-    alert('error updating', err)
-})
+        console.log('back from put:', response);
+        displayTask();
+    }).catch(function(err){
+        alert('error updating', err)
+    })
 }

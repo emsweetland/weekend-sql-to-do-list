@@ -16,7 +16,7 @@ const pool = new Pool({
 //get
 tasksRouter.get('/', (req, res)=> {
     console.log('in /tasks GET');
-    const query = `SELECT * from "tasks" ORDER BY "id";`;
+    const query = `SELECT * FROM "tasks" ORDER BY "id";`;
     pool.query(query).then((results)=>{
         res.send(results.rows);
     }).catch((err)=>{
@@ -40,9 +40,9 @@ tasksRouter.post('/', (req, res) => {
 
 //put
 tasksRouter.put('/:id', (req, res)=>{
-    console.log('PUT:', req.params.id, req.body);
-    const query = `UPDATE "tasks" SET status=$1 WHERE id=$2;`;
-    const values = [req.body.status, req.params.id];
+    console.log('PUT:', req.params.id, req.body.status);
+    const query = `UPDATE "tasks" SET "status" = NOT "status" WHERE "id" = $1;`;
+    const values = [req.params.id];
     pool.query(query, values).then((results)=>{
         res.sendStatus(200);
     }).catch((err) => {
